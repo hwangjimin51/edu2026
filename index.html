@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인공지능기초 랜딩페이지</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Dark Mode Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'Apple SD Gothic Neo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- 초기 테마 설정 스크립트 (화면 깜빡임 방지) -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- 커스텀 3D 및 애니메이션 CSS -->
+    <style>
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        .group:hover .group-hover\:rotate-y-180 { transform: rotateY(180deg); }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        
+        /* 부드러운 스크롤 */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 selection:bg-cyan-500 selection:text-white">
+
+    <!-- 네비게이션 바 -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600 dark:from-cyan-400 dark:to-blue-500">
+                <i data-lucide="cpu" class="text-cyan-600 dark:text-cyan-400 w-8 h-8"></i>
+                <span>AI Class 2026</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <a href="#" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">수업 소개</a>
+                <a href="#ethics" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">인공지능 윤리</a>
+                <a href="#dilemma" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">윤리적 딜레마</a>
+                
+                <!-- 다크/라이트 모드 토글 버튼 -->
+                <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg text-sm p-2.5 transition-colors">
+                    <i id="theme-toggle-dark-icon" data-lucide="moon" class="hidden w-5 h-5"></i>
+                    <i id="theme-toggle-light-icon" data-lucide="sun" class="hidden w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- 배경 효과 -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-400/20 dark:bg-cyan-500/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-purple-400/20 dark:bg-purple-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center flex flex-col items-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-cyan-600 dark:text-cyan-400 text-sm font-medium mb-8 shadow-sm">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>정보과 이번 학기 특별 과정</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-slate-900 dark:text-white">
+                미래를 만드는 힘, <br />
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 dark:from-cyan-400 dark:via-blue-500 dark:to-purple-500">
+                    인공지능의 세계
+                </span>로 초대합니다
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl">
+                단순히 기술을 배우는 것을 넘어, AI가 만들어갈 세상을 이해하고 
+                올바르게 활용하는 방법을 배우는 '인공지능 기초' 수업입니다.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#ethics" class="px-8 py-4 bg-cyan-600 hover:bg-cyan-700 dark:hover:bg-cyan-500 text-white rounded-xl font-bold transition-all hover:scale-105 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(8,145,178,0.3)] dark:shadow-[0_0_20px_rgba(8,145,178,0.4)]">
+                    인공지능 윤리 알아보기 <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+                <a href="#dilemma" class="px-8 py-4 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded-xl font-bold transition-all border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm">
+                    윤리적 딜레마 실습하기
+                </a>
+            </div>
+        </div>
+
+        <!-- 하단 스크롤 유도 -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-slate-400 dark:text-slate-500">
+            <i data-lucide="chevron-down" class="w-8 h-8"></i>
+        </div>
+    </section>
+
+    <!-- 인공지능 윤리 섹션 (인터렉티브 플립 카드) -->
+    <section id="ethics" class="py-24 bg-white dark:bg-slate-900 relative transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">인공지능 윤리, 왜 중요할까요?</h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    AI는 우리 삶을 편리하게 만들지만, 동시에 새로운 문제들을 가져옵니다. 
+                    올바른 AI 활용을 위해 반드시 알아야 할 3가지 핵심 윤리를 카드를 뒤집어 확인해보세요.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 카드 1 -->
+                <div class="group h-80 perspective-1000 cursor-pointer">
+                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute inset-0 backface-hidden bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg transition-colors duration-300">
+                            <div class="mb-6 p-4 bg-white dark:bg-slate-900 rounded-full shadow-inner border border-slate-100 dark:border-slate-800">
+                                <i data-lucide="shield-alert" class="text-rose-500 dark:text-rose-400 w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-3 text-slate-900 dark:text-slate-100">편향성 (Bias)</h3>
+                            <p class="text-cyan-600 dark:text-cyan-400 font-medium">AI도 차별을 할 수 있다고?</p>
+                            <div class="absolute bottom-6 text-slate-400 dark:text-slate-500 text-sm flex items-center gap-1">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 마우스를 올려보세요
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-rose-500 to-red-600 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-2xl rotate-y-180">
+                            <h3 class="text-2xl font-bold mb-4 text-white border-b border-white/30 pb-2 w-full">편향성 (Bias)</h3>
+                            <p class="text-white/95 leading-relaxed text-lg">
+                                AI는 인간이 만든 데이터로 학습합니다. 데이터에 편견이 있다면 AI도 인종, 성별 등에 대한 차별적인 결과를 낼 수 있습니다. 우리는 공정한 데이터를 만들 책임이 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 카드 2 -->
+                <div class="group h-80 perspective-1000 cursor-pointer">
+                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute inset-0 backface-hidden bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg transition-colors duration-300">
+                            <div class="mb-6 p-4 bg-white dark:bg-slate-900 rounded-full shadow-inner border border-slate-100 dark:border-slate-800">
+                                <i data-lucide="eye" class="text-blue-500 dark:text-blue-400 w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-3 text-slate-900 dark:text-slate-100">투명성 (Transparency)</h3>
+                            <p class="text-cyan-600 dark:text-cyan-400 font-medium">AI가 내린 결정, 이유는 뭘까?</p>
+                            <div class="absolute bottom-6 text-slate-400 dark:text-slate-500 text-sm flex items-center gap-1">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 마우스를 올려보세요
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-2xl rotate-y-180">
+                            <h3 class="text-2xl font-bold mb-4 text-white border-b border-white/30 pb-2 w-full">투명성 (Transparency)</h3>
+                            <p class="text-white/95 leading-relaxed text-lg">
+                                '블랙박스'처럼 속을 알 수 없는 AI는 위험합니다. AI가 어떤 과정을 거쳐 그런 판단을 내렸는지 설명할 수 있어야 신뢰하고 안전하게 사용할 수 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 카드 3 -->
+                <div class="group h-80 perspective-1000 cursor-pointer">
+                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <div class="absolute inset-0 backface-hidden bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-lg transition-colors duration-300">
+                            <div class="mb-6 p-4 bg-white dark:bg-slate-900 rounded-full shadow-inner border border-slate-100 dark:border-slate-800">
+                                <i data-lucide="lock" class="text-emerald-500 dark:text-emerald-400 w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-3 text-slate-900 dark:text-slate-100">개인정보보호 (Privacy)</h3>
+                            <p class="text-cyan-600 dark:text-cyan-400 font-medium">내 데이터는 안전할까?</p>
+                            <div class="absolute bottom-6 text-slate-400 dark:text-slate-500 text-sm flex items-center gap-1">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 마우스를 올려보세요
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-2xl rotate-y-180">
+                            <h3 class="text-2xl font-bold mb-4 text-white border-b border-white/30 pb-2 w-full">개인정보보호 (Privacy)</h3>
+                            <p class="text-white/95 leading-relaxed text-lg">
+                                AI가 똑똑해지려면 엄청난 양의 데이터가 필요합니다. 이 과정에서 우리의 개인정보가 무단으로 수집되거나 악용되지 않도록 철저한 보호 시스템과 윤리 의식이 필요합니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 윤리적 딜레마 실습 섹션 -->
+    <section id="dilemma" class="py-32 bg-slate-100/50 dark:bg-slate-800/50 relative border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-6 text-center flex flex-col items-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-100 dark:bg-rose-500/20 border border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400 text-sm font-medium mb-6">
+                <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                <span>생각해볼 문제</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">인공지능의 윤리적 딜레마</h2>
+            
+            <p class="text-lg text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+                정답이 없는 상황에서 인공지능은 과연 어떤 선택을 내려야 할까요? <br/>
+                트롤리 딜레마 같은 윤리적 문제 상황을 직접 체험하고 토론해 봅시다.
+            </p>
+            
+            <!-- 요청하신 ./01/index.html 경로 적용 -->
+            <a href="./01/index.html" class="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white transition-all duration-300 bg-rose-600 rounded-2xl hover:bg-rose-500 hover:-translate-y-1 shadow-[0_0_30px_rgba(225,29,72,0.3)] dark:shadow-[0_0_30px_rgba(225,29,72,0.4)] hover:shadow-[0_0_40px_rgba(225,29,72,0.5)] dark:hover:shadow-[0_0_40px_rgba(225,29,72,0.6)]">
+                <span class="text-lg">윤리적 딜레마 실습 시작하기</span>
+                <i data-lucide="arrow-right" class="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="bg-slate-100 dark:bg-slate-950 py-12 border-t border-slate-200 dark:border-slate-800 text-center transition-colors duration-300">
+        <div class="flex justify-center mb-6">
+            <i data-lucide="brain" class="text-slate-400 dark:text-slate-700 w-12 h-12"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">2026학년도 1학기 인공지능기초</h3>
+        <p class="text-slate-500 mb-6">담당교사: 정보과 선생님 | 장소: 컴퓨터실 (AI Lab)</p>
+        <p class="text-sm text-slate-400 dark:text-slate-600">© 2026 AI Class. All rights reserved. 학생들을 위한 인터렉티브 웹페이지입니다.</p>
+    </footer>
+
+    <!-- 자바스크립트 기능 구현 -->
+    <script>
+        // 1. Lucide 아이콘 초기화
+        lucide.createIcons();
+
+        // 2. 다크/라이트 모드 토글 로직
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // 현재 테마에 따라 아이콘 표시 초기화
+        if (document.documentElement.classList.contains('dark')) {
+            lightIcon.classList.remove('hidden'); // 다크모드일 때는 '해' 아이콘 표시
+        } else {
+            darkIcon.classList.remove('hidden'); // 라이트모드일 때는 '달' 아이콘 표시
+        }
+
+        // 버튼 클릭 이벤트
+        themeToggleBtn.addEventListener('click', function() {
+            // 아이콘 토글
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+
+            // 테마 토글 및 로컬 스토리지 저장
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // 3. 스크롤 시 네비게이션 바 스타일 변경 효과
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // 스크롤이 내려갔을 때 (라이트모드와 다크모드 배경 동시 적용)
+                navbar.classList.add('bg-white/90', 'dark:bg-slate-900/90', 'backdrop-blur-md', 'shadow-sm', 'dark:shadow-lg', 'py-4', 'border-b', 'border-slate-200', 'dark:border-slate-800');
+                navbar.classList.remove('bg-transparent', 'py-6');
+            } else {
+                // 최상단일 때 (투명)
+                navbar.classList.add('bg-transparent', 'py-6');
+                navbar.classList.remove('bg-white/90', 'dark:bg-slate-900/90', 'backdrop-blur-md', 'shadow-sm', 'dark:shadow-lg', 'py-4', 'border-b', 'border-slate-200', 'dark:border-slate-800');
+            }
+        });
+    </script>
+</body>
+</html>
